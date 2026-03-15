@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import "./day14-BaseDepositBox.sol"; //从 BaseDepositBox 导入基础逻辑
 
 contract PremiumDepositBox is BaseDepositBox {
+    constructor(address initialOwner) BaseDepositBox(initialOwner) {}
     string private metadata;
 
     event MetadataUpdated(address indexed owner); //更新元数据,跟踪变化
