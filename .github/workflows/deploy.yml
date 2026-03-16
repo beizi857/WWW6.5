@@ -1,0 +1,30 @@
+name: Deploy Solidity GUI
+
+on:
+  push:
+    branches:
+      - master # 监听 master 分支的变动
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Install and Build 🔧
+        run: |
+          cd Tenlossiby/GUI
+          npm install
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: Tenlossiby/GUI/dist # 部署打包后的 dist 文件夹
+          branch: gh-pages # 部署到 gh-pages 分支
+          clean: true
